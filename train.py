@@ -40,8 +40,8 @@ import transformers
 from transformers import CLIPTextModel, CLIPTokenizer
 
 from animatediff.data.dataset import WebVid10M
-from animatediff.modelshigh.unet import UNet3DConditionModel
-from animatediff.modelshigh.controlnet import ControlNetModel
+from animatediff.models.unet import UNet3DConditionModel
+from animatediff.models.controlnet import ControlNetModel
 from animatediff.pipelines.pipeline_animation import AnimationPipeline
 from animatediff.utils.util import save_videos_grid, zero_rank_print
 
@@ -465,7 +465,7 @@ def main(
                                   encoder_hidden_states=encoder_hidden_states,
                                   down_block_additional_residuals=down_block_res_samples,
                                   mid_block_additional_residual=mid_block_res_sample,
-                                  is_opticalflow=False).sample
+                                  ).sample
                 loss = F.mse_loss(model_pred.float(), target.float(), reduction="mean")
 
             optimizer.zero_grad()
@@ -499,21 +499,14 @@ def main(
             # Save checkpoint
             if is_main_process and (global_step % checkpointing_steps == 0 or step == len(train_dataloader) - 1):
                 save_path = os.path.join(output_dir, f"checkpoints")
-                # state_dict = {
-                #     "epoch": epoch,
-                #     "global_step": global_step,
-                #     "state_dict": unet.state_dict(),
-                # }
                 controlnet_state_dict = {
                     "epoch": epoch,
                     "global_step": global_step,
                     "state_dict": controlnet.state_dict(),
                 }
                 if step == len(train_dataloader) - 1:
-                    # torch.save(state_dict, os.path.join(save_path, f"checkpoint-epoch-{epoch+1}.ckpt"))
                     torch.save(controlnet_state_dict, os.path.join(save_path, f"controlnet_checkpoint-epoch-{epoch+1}.ckpt"))
                 else:
-                    # torch.save(state_dict, os.path.join(save_path, f"checkpoint.ckpt"))
                     torch.save(controlnet_state_dict, os.path.join(save_path, f"controlnet_checkpoint.ckpt"))
                 logging.info(f"Saved state to {save_path} (global_step: {global_step})")
                 

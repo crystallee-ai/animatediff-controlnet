@@ -1,0 +1,36 @@
+RealisticVision:
+  base: ""
+  path: "models/DreamBooth_LoRA/realisticVisionV20_v20.safetensors"
+
+  inference_config: "configs/inference/inference-v2.yaml"
+  motion_module:
+    - "models/Motion_Module/mm_sd_v15_v2.ckpt"
+
+  seed:           [0]
+  steps:          25
+  guidance_scale: 7.5
+
+  prompt:
+    - "photo of coastline, rocks, storm weather, wind, waves, lightning, 8k uhd, dslr, soft lighting, high quality, film grain, Fujifilm XT3"
+    - "b&w photo of 42 y.o man in black clothes, bald, face, half body, body, high detailed skin, skin pores, coastline, overcast weather, wind, waves, 8k uhd, dslr, soft lighting, high quality, film grain, Fujifilm XT3"
+    - "beach, large rocks, waves, cloudy sky, dark clouds, flowing water"
+    - "scuba diving, coral reef, fish, sea anemones, starfish, sea turtles, clear water, sunlight, underwater world"
+    - "fireworks, new year, 2023, night sky, stars, ring of fire"
+    - "bird, small, brown, back, wings, white, chest, belly, black, beak, eyes, tree, deciduous, shrub, green, leaves, sky, clouds"
+
+  n_prompt:
+    - "blur, haze, deformed iris, deformed pupils, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime, mutated hands and fingers, deformed, distorted, disfigured, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, disconnected limbs, mutation, mutated, ugly, disgusting, amputation"
+    - "semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime, text, close up, cropped, out of frame, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck"
+    - ""
+    - ""
+    - ""
+    - ""
+
+  init_image:
+    - "/root/lh/AnimateDiffcontrolnet-main/init_images/0.jpg"
+    - "/root/lh/AnimateDiffcontrolnet-main/init_images/1.jpg"
+    - "/root/lh/AnimateDiffcontrolnet-main/init_images/2.jpg"
+    - "/root/lh/AnimateDiffcontrolnet-main/init_images/3.jpg"
+    - "/root/lh/AnimateDiffcontrolnet-main/init_images/4.jpg"
+    - "/root/lh/AnimateDiffcontrolnet-main/init_images/5.jpg"
+
